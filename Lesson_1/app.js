@@ -1,3 +1,43 @@
+Vue.component('product-review', {
+    template: `<div>
+    <form @submit.prevent='sendData'> 
+    <p>
+    <button type='submit'>Send</button>
+    </p> 
+    <label>Name</label> <input v-model='name'/>
+    <label>Review</label> <textarea v-model='review'></textarea>
+    <label>Score</label>
+    <select v-model.number='score'>
+    <option>1</option>
+    <option>2</option>
+    <option>3</option>
+    <option>4</option>
+    <option>5</option>
+    </select>
+    </form>
+<p>
+<div><b>Name: </b>{{name}}</div>
+<div><b>Score: </b>{{score}}</div>
+<div><b>Review: </b>{{review}}</div>
+</p>
+
+    
+    </div>`,
+    data() {
+        return {
+            name: '',
+            review: '',
+            score: 2
+        }
+    },
+    methods: {
+        sendData() {
+            console.log('Sending ....');
+        }
+
+    }
+});
+
 Vue.component('product', {
     props: {
         premium: {
@@ -8,55 +48,65 @@ Vue.component('product', {
     },
     template: `
     <div class="product-info">
-    <div class="product" v-bind:style="[premium? {border: '2px solid red'} : {border: 'none'}]">
-        stock: {{inStock}}
-        <button @click="changeImage">Change Color</button>
-        <button @click='addToCart'
-                v-bind:disabled='!inStock'
-                v-bind:class="{disabledButton:!inStock}"> 
-                Add To Cart
-        </button>
-        
-
-        <div class="product-image">
-            <img v-bind:src="productImage">
-            <div v-for="image in sockImages">
-
-                <div v-bind:style="[nameStyleObject, { backgroundColor:image.name}]"
-                    @mouseover="changeImageTo(image.image)" class="change-image">
-                    {{image.name}}
-                </div>
-            </div>
+    <div
+      class="product"
+      v-bind:style="[premium? {border: '2px solid red'} : {border: 'none'}]"
+    >
+      stock: {{ inStock }}
+      <button @click="changeImage">Change Color</button>
+      <button
+        @click="addToCart"
+        v-bind:disabled="!inStock"
+        v-bind:class="{disabledButton:!inStock}"
+      >
+        Add To Cart
+      </button>
+  
+      <div class="product-image">
+        <img v-bind:src="productImage" />
+        <div v-for="image in sockImages">
+          <div
+            v-bind:style="[nameStyleObject, { backgroundColor:image.name}]"
+            @mouseover="changeImageTo(image.image)"
+            class="change-image"
+          >
+            {{ image.name }}
+          </div>
         </div>
+      </div>
     </div>
-    <h3>{{title}} |{{myTitle()}} | ({{this.currentImage}} - useless: {{uselessVariable}})</h3>
-    <button @click='inStock = !inStock'>Change Stock</button>
-    <button @click='uselessVariable = !uselessVariable'>Change Useless Variable</button>
-    <p v-if='inStock'>In Stock</p>
-    <p v-else='!inStock'>Out of stock</p>
-
+    <h3>
+      {{ title }} |{{ myTitle() }} | ({{ this.currentImage }} - useless:
+      {{ uselessVariable }})
+    </h3>
+    <button @click="inStock = !inStock">Change Stock</button>
+    <button @click="uselessVariable = !uselessVariable">
+      Change Useless Variable
+    </button>
+    <p v-if="inStock">In Stock</p>
+    <p v-else="!inStock">Out of stock</p>
+  
     <ul>
-        <li v-for='(feature, index) in features'>{{ index }}.{{ feature.name }} ({{ feature.score }})</li>
-    </ul>
-
-    <div v-for='(feature, index) in features' v-bind:id='index' v-bind:key='index'>
+      <li v-for="(feature, index) in features">
         {{ index }}.{{ feature.name }} ({{ feature.score }})
+      </li>
+    </ul>
+  
+    <div
+      v-for="(feature, index) in features"
+      v-bind:id="index"
+      v-bind:key="index"
+    >
+      {{ index }}.{{ feature.name }} ({{ feature.score }})
     </div>
-
-    <div><b>Shipping: {{shipping}} </b> </div>
-
-
-
-
-
-
+  
+    <div>
+      <b>Shipping: {{ shipping }} </b>
+    </div>
+  
     <b>Cart: </b>
-
-    
-
-
-
-</div>
+  </div>
+  
     `,
     computed: {
         shipping() {
@@ -148,7 +198,6 @@ Vue.component('product', {
         }
     }
 });
-
 
 
 var ma = {

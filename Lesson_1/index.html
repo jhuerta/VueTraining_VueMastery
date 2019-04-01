@@ -16,8 +16,10 @@
     <div class="nav-bar"></div>
     <div id="app">
 
-
+        <product-review></product-review>
         <product :premium="paidCustomer" @add-to-cart='addItemTocart'></product>
+
+
         <button @click='paidCustomer = !paidCustomer'>Change Paid Customer</button>
         <p> <b>Cart:</b> {{cart.length}}</p>
         <div v-for='(cartItem, index) in cart'>
