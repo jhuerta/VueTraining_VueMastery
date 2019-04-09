@@ -23,7 +23,46 @@ function(){
 http://www.google.com
 `----------------------------------------------------`
 
-#SECTION 1.1: FIRST BASIC APPLICATION#VueMastery_CourseNotes.notes
+#SECTION 1.1: FIRST BASIC APPLICATION#
 v-show: Toggles visibility 
 v-if: Add and remove the element from the dom
 Computed properties are CACHED, way more efficient than a method, run every time something changes.
+
+#SECTION 3: OPTIMIZING YOUR EDITOR (VS CODE)
+
+1) Install Vetur
+    1) Color Highlight
+    2) Snippets (in Vue files)
+        2.1) scaffold
+        2.2) emmet
+2) Install Prettier - Code Formatter (Esben Petersen) 
+3) Install ESLint (Dirk Baeumer)
+4) Configure ESLint + Prettier  
+    4.1) Previously, in our project, we have chosen dedicated config files. 
+    4.2) Because dedicated config files, we have a .eslintrc files. (if not, the eslint configuration will be in the package.json file)
+    4.3) Open .eslintrc and edit:
+        4.3.1) 'extends': [ ...,'plugin:prettier/recommended',...] ===> This enable prettier within eslint support with default settings
+    4.4) Create prettier config file for our own custom settings:
+        4.4.1) Create file .prettierrc.js
+        4.4.2) module.export = {singleQuote: true, semi: false}
+        4.4.3) More options: https://prettier.io/docs/en/options.html
+5) Configure User Settings:
+ "vetur.validation.template": false
+ "eslint.validate": [
+        {"language": "vue","autoFix": true},
+        {"language": "html","autoFix": true},
+        {"language": "javascript","autoFix": true}
+    ],
+    "eslint.autoFixOnSave": true,
+    "editor.formatOnSave": true,
+6) Install code Vue VS Snippets: Sarah.drasner vue snippets:
+    6.1) vif, von, vdata, vprops, vimport-lib
+    6.2) Use in settings the below, to avoid conflicts between Vetur snippets and Sahra Drasner snippets:
+        "vetur.completion.useScaffolSnippets": false 
+
+#SECTION 4: CLIENT SITE ROUTING: VUE-ROUTER
+
+ - Router starts to be use din the router.js file
+      <router-link to="/">Home</router-link> |
+        <router-view/>
+          routes: [{path: '/',name: 'home',component: Home]
