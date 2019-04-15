@@ -1,5 +1,9 @@
 <template>
   <div id="nav">
+    <div>
+      My Base Icon:
+      <bIcon name="video-off" width="40" height="40"/>
+    </div>
     <router-link to="/" class="brand">Real World Events</router-link>|
     <nav>
       <router-link to="/">Homegit a</router-link>|
