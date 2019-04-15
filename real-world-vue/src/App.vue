@@ -1,12 +1,28 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+      <router-link to="/">Homegit a</router-link>|
+      <router-link :to="{name:'eventshow', params: {showid: showid}}">Event Show:</router-link>
+      <input style="width:5%" type="number" v-model="showid">
+      ({{showid}})
+      <router-link :to="{name:'eventcreate'}">Event Create</router-link>|
+      <router-link :to="{name:'eventlist'}">Event List</router-link>|
     </div>
+
     <router-view/>
   </div>
 </template>
+
+
+<script>
+export default {
+  data() {
+    return {
+      showid: -1
+    }
+  }
+}
+</script>
 
 <style>
 #app {
