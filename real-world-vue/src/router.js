@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import EventCreate from './views/EventCreate'
 import EventShow from './views/EventShow'
 import EventList from './views/EventList'
+import EventCard from './views/EventCard'
 import NotFoundPage from './views/NotFoundPage'
 
 Vue.use(Router)
@@ -26,6 +27,11 @@ export default new Router({
       path: '/List',
       name: 'eventlist',
       component: EventList
+    },
+    {
+      path: '/Card',
+      name: 'card',
+      component: EventCard
     },
     {
       path: '*',
