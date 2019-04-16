@@ -1,10 +1,18 @@
 <template>
   <div class="icon-wrapper">
-    work
+    <div>
+      <slot name="name_text"></slot>
+    </div>
     <svg class="icon" :width="width" :height="height">
       <use v-bind="{'xlink:href':'/feather-sprite.svg#'+name}"></use>
     </svg>
-    ing
+    <div>
+      <slot name="lastname_text"></slot>
+    </div>
+    <div>
+      <b>Age:</b>
+      <slot name="age_text">41</slot>
+    </div>
   </div>
 </template>
 
