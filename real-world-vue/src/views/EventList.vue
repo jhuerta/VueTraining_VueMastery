@@ -1,20 +1,37 @@
 <template>
   <span>
     <h1>Events Listing</h1>
-    <div class="event" v-for="event in eventList" :key="event.id">
-      <eventCard :title="event.name" :id="event.id" :description="event.description"/>
+    <div class="event" v-for="event in events" :key="event.id">
+      <eventCard :title="event.title" :id="event.id" :description="event.body"/>
     </div>
   </span>
 </template>
 <script>
 import eventCard from './EventCard.vue'
-
+import apiClient from '../services/EventService.js'
 export default {
   components: {
     eventCard
   },
+  created() {
+    // var apiURL = 'https://jsonplaceholder.typicode.com/posts'
+    // axios
+    //   .get(apiURL)
+    //   .then(response => {
+    //     this.events = response.data
+    //     console.log(response.data)
+    //   })
+    //   .catch(error => console.error(error))
+    apiClient
+      .getEvents()
+      .then(response => {
+        this.events = response.data
+      })
+      .catch(error => console.error(error))
+  },
   data() {
     return {
+      events: [],
       eventList: [
         {
           id: 0,

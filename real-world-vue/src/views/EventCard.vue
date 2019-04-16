@@ -4,9 +4,7 @@
     <span class="eyebrow">{{id}}</span>
     <h4>{{title}}</h4>
     <span>Subtitle</span>
-    <router-link
-      :to="{name:'eventshow', params: {id: id, showid: id, showname: title, summary: description}}"
-    >More...</router-link>
+    <router-link :to="{name:'eventshow', params: {showid: id}}">More...</router-link>
   </div>
 </template>
 
