@@ -3,7 +3,7 @@ import upperFirst from 'lodash/upperFirst'
 import camelCase from 'lodash/camelCase'
 import App from './App.vue'
 import router from './router'
-import store from './store'
+import VuexStore from './store'
 import BaseIcon from '@/components/BaseIcon'
 
 Vue.component('BaseIcon', BaseIcon)
@@ -28,6 +28,6 @@ requireComponent.keys().forEach(fileName => {
 
 new Vue({
   router,
-  store,
+  store: VuexStore,
   render: h => h(App)
 }).$mount('#app')
