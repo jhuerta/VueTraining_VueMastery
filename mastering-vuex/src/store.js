@@ -4,6 +4,20 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
+  mutations: {
+    INCREMENT_COUNT(state, byHowMuch) {
+      state.count += byHowMuch
+    }
+  },
+  actions: {
+    incrementCount({ state, commit }, value) {
+      if (state.count >= 0) {
+        commit('INCREMENT_COUNT', value)
+      } else {
+        commit('INCREMENT_COUNT', state.count * -1)
+      }
+    }
+  },
   getters: {
     // Different ways to define the function:
 
@@ -41,6 +55,7 @@ export default new Vuex.Store({
     // }
   },
   state: {
+    count: 1,
     events: [
       { id: 1, title: 'Rojo', organizer: 'Rambo' },
       { id: 2, title: 'Verde', organizer: 'Stallone' },
@@ -67,7 +82,5 @@ export default new Vuex.Store({
       'food',
       'community'
     ]
-  },
-  mutations: {},
-  actions: {}
+  }
 })

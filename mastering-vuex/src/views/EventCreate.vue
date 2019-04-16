@@ -1,81 +1,76 @@
 <template>
-  <span>
-    <h1>Create Event ({{today}})</h1>
-    <div>
-      <u>Using mapstate and properties:</u>
-      <b>{{userName}} ({{userId}})</b>
-    </div>
-    <div>
-      <u>Using mapstate passing the object:</u>
-      <b>{{user.name}} ({{user.id}})</b>
-    </div>
-    <div>
-      <u>Using literal strings to compose the name + id:</u>
-      <b>{{fullUserName}}</b>
-    </div>
-    <b>Choose a category ({{numberOfCategories}} available)</b>
-    <select>
-      <option v-for="category in categories" :key="category.id">{{ category }}</option>
-    </select>
-    <h3>Done ToDos ({{numberOfDoneTodos}})</h3>
-    <div v-for="doneTodo in doneTodos" :key="doneTodo.id">{{ doneTodo.id }}. {{ doneTodo.text }}</div>
-    <div>
-      <b>Some event by id</b>
-      {{getEventById(1,'other argument')}}
-    </div>
-  </span>
+  <div>
+    <h1>Create an event</h1>
+
+    <form>
+      <label>Select a category</label>
+      <select v-model="event.category">
+        <option v-for="cat in categories" :key="cat">{{ cat }}</option>
+      </select>
+      <h3>Name & describe your event</h3>
+      <div class="field">
+        <label>Title</label>
+        <input v-model="event.title" type="text" placeholder="Add an event title">
+      </div>
+      <div class="field">
+        <label>Description</label>
+        <input v-model="event.description" type="text" placeholder="Add a description">
+      </div>
+      <h3>Where is your event?</h3>
+      <div class="field">
+        <label>Location</label>
+        <input v-model="event.location" type="text" placeholder="Add a location">
+      </div>
+      <h3>When is your event?</h3>
+      <div class="field">
+        <label>Date</label>
+        <datepicker v-model="event.date" placeholder="Select a date"/>
+      </div>
+      <div class="field">
+        <label>Select a time</label>
+        <select v-model="event.time">
+          <option v-for="time in times" :key="time">{{ time }}</option>
+        </select>
+      </div>
+      <input type="submit" class="button -fill-gradient" value="Submit">
+    </form>
+  </div>
 </template>
 
-<script>
-import { mapGetters, mapState } from 'vuex'
-
+    <script>
+import Datepicker from 'vuejs-datepicker'
 export default {
-  // 1) Mapping Vuex store to computed properties using mapste:
+  components: {
+    Datepicker
+  },
   data() {
+    const times = []
+    for (let i = 1; i <= 24; i++) {
+      times.push(i + ':00')
+    }
     return {
-      todayDay: 'Monday'
+      event: this.createFreshEvent(),
+      times,
+      categories: this.$store.state.categories
     }
   },
-  computed: {
-    // We can use mapGetters in a similar way as mapState
-    ...mapGetters(['getEventById', 'numberOfDoneTodos']),
-    numberOfCategories() {
-      return this.$store.getters.categoryLength
-    },
-    doneTodos() {
-      return this.$store.getters.doneTodos
-    },
-    // doneTodosCount() {
-    //   return this.$store.getters.numberOfDoneTodos
-    // },
-    // getEvent() {
-    //   return this.$store.getters.getEventById
-    // },
-    today() {
-      return Date.now()
-    },
-    userName() {
-      return this.$store.state.user.name
-    },
-    userId() {
-      return this.$store.state.user.id
-    },
-    // We can access the store from this.$store or with mapstate
-    fullUserName() {
-      return `${this.$store.state.user.name} (${this.$store.state.user.id})`
-    },
-    ...mapState(['user', 'categories'])
-    // using this notation of array is the same as
-    /*...mapState({
-      user: 'user',
-      categories: 'categories',
-      fullUserName: state => `${state.user.name} +(${state.user.id})+`,
-      userName: state => state.user.name,
-      userId: state => state.user.id
-    })*/
+  methods: {
+    createFreshEvent() {
+      const user = this.$store.state.user
+      return {
+        category: '',
+        organizer: user,
+        title: '',
+        description: '',
+        location: '',
+        date: '',
+        time: '',
+        attendees: []
+      }
+    }
   }
 }
 </script>
 
-<style scoped>
+<style  scoped>
 </style>
