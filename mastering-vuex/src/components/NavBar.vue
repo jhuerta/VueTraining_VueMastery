@@ -2,6 +2,7 @@
   <div id="nav" class="nav">
     <router-link to="/" class="brand">Real World Events</router-link>
     <nav>
+      <NewRandomEvent/>|
       <router-link :to="{ name: 'event-list' }">List</router-link>|
       <router-link :to="{ name: 'event-create' }">Create</router-link>|
       <router-link :to="{ name: 'test-vuex-getters' }">Vuex Getters</router-link>|
@@ -11,7 +12,13 @@
 </template>
 
 <script>
-export default {}
+import NewRandomEvent from './NewRandomEvent'
+
+export default {
+  components: {
+    NewRandomEvent
+  }
+}
 </script>
 
 <style scoped>
