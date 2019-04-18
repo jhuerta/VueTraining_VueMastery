@@ -13,12 +13,30 @@ export default new Vuex.Store({
       state.events.push(event)
     },
     INITIALIZE_EVENTS(state, events) {
-      Vue.set(state, 'events', [...events])
+      // Vue.set(state, 'events', [...events])
+      state.events = events.reverse()
+    },
+    SET_EVENT(state, event) {
+      state.event = event
     }
   },
   actions: {
-    initializeEvents({ commit }) {
-      EventService.getEvents()
+    fetchEvent({ commit, getters }, id) {
+      var event = getters.EventService.getEventById(id)
+      if (event) {
+        commit('SET_EVENT', event)
+      } else {
+        EventService.getEvent(id)
+          .then(response => {
+            commit('SET_EVENT', response.data)
+          })
+          .catch(error => {
+            console.log('There was an error:', error.response)
+          })
+      }
+    },
+    fetchEvents({ commit }, { perPage, page }) {
+      EventService.getEvents(perPage, page)
         .then(response => {
           commit('INITIALIZE_EVENTS', response.data)
         })
@@ -78,6 +96,7 @@ export default new Vuex.Store({
     // }
   },
   state: {
+    event: {},
     count: 1,
     todos: [
       { id: 1, text: 'abc', done: true },
