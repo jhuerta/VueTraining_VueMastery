@@ -4,8 +4,14 @@
     <!-- <a href="#" @click="page--"><< Previous</a> |
     <a href="#" @click="page++">Next >></a>-->
 
-    <router-link :to="{name: 'event-list', query: {page: page-1} }">*Previous*</router-link>|
-    <router-link :to="{name: 'event-list', query: {page: page+1} }">*Next*</router-link>|
+    <router-link
+      v-show="page>1"
+      :to="{name: 'event-list', query: {page: parseInt(page)-1} }"
+    >*Previous*</router-link>|
+    <router-link
+      v-show="shouldDisplayNext"
+      :to="{name: 'event-list', query: {page: parseInt(page)+1} }"
+    >*Next*</router-link>|
     <div class="text">
       <label for="perpage">Per Page</label>
       <input id="perpage" @change="onChange()" v-model="perPage" type="number">
@@ -30,7 +36,7 @@ export default {
   data() {
     return {
       perPage: 2,
-      page: 10
+      page: this.$route.query.page || 10
     }
   },
   methods: {
@@ -42,16 +48,23 @@ export default {
     }
   },
   computed: {
-    ...mapState(['events']),
+    ...mapState(['events', 'totalEvents']),
     cpage: {
       get() {
-        console.log('changed')
+        console.log(this.page)
+        console.log(this.page)
         return this.page
       },
       // setter
-      set(value) {
-        console.log('set')
-      }
+      set() {}
+    },
+    shouldDisplayNext: {
+      get() {
+        var currentDisplayed = this.page * this.perPage
+        var shouldDisplayNext = this.totalEvents > currentDisplayed
+        return shouldDisplayNext
+      },
+      set() {}
     }
   },
   // computed: {

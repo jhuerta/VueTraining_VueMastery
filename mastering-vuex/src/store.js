@@ -18,6 +18,9 @@ export default new Vuex.Store({
     },
     SET_EVENT(state, event) {
       state.event = event
+    },
+    SET_TOTAL_EVENTS(state, totalEvents) {
+      state.totalEvents = totalEvents
     }
   },
   actions: {
@@ -38,6 +41,8 @@ export default new Vuex.Store({
     fetchEvents({ commit }, { perPage, page }) {
       EventService.getEvents(perPage, page)
         .then(response => {
+          var xTotalCount = response.headers['x-total-count']
+          commit('SET_TOTAL_EVENTS', xTotalCount)
           commit('INITIALIZE_EVENTS', response.data)
         })
         .catch(error => {
@@ -96,6 +101,7 @@ export default new Vuex.Store({
     // }
   },
   state: {
+    totalEvents: 0,
     event: {},
     count: 1,
     todos: [
