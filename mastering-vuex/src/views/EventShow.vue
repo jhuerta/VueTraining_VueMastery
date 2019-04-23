@@ -1,40 +1,51 @@
 <template>
   <div>
     <div class="event-header">
-      <span class="eyebrow">@{{ event.time }} on {{ event.date }}</span>
-      <h1 class="title">{{ event.title }}</h1>
-      <h5>Organized by {{ event.organizer ? event.organizer.name : 'no organizer' }}</h5>
-      <h5>Category: {{ event.category }}</h5>
+      <span class="eyebrow">@{{ thisEvent.time }} on {{ thisEvent.date }}</span>
+      <h1 class="title">{{ thisEvent.title }}</h1>
+      <h5>Organized by {{ thisEvent.organizer ? thisEvent.organizer.name : 'no organizer' }}</h5>
+      <h5>Category: {{ thisEvent.category }}</h5>
     </div>
 
     <BaseIcon name="map">
       <h2>Location</h2>
     </BaseIcon>
 
-    <address>{{ event.location }}</address>
+    <address>{{ thisEvent.location }}</address>
 
     <h2>Event details</h2>
-    <p>{{ event.description }}</p>
+    <p>{{ thisEvent.description }}</p>
 
     <h2>
       Attendees
-      <span class="badge -fill-gradient">{{ event.attendees ? event.attendees.length : 0 }}</span>
+      <span
+        class="badge -fill-gradient"
+      >{{ thisEvent.attendees ? thisEvent.attendees.length : 0 }}</span>
     </h2>
     <ul class="list-group">
-      <li v-for="(attendee, index) in event.attendees" :key="index" class="list-item">
+      <li v-for="(attendee, index) in thisEvent.attendees" :key="index" class="list-item">
         <b>{{ attendee.name }}</b>
       </li>
     </ul>
   </div>
 </template>
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 export default {
   props: ['id'],
   created() {
-    this.$store.dispatch('fetchEvent', this.id)
+    // this.$store.dispatch('eventStore/fetchEvent', this.id)
+    this.mappedActionFetchEvent(this.id)
   },
-  computed: mapState(['event'])
+  // computed: mapState(['eventStore'])
+  // This way of decalring the state is equivalent to the one above,
+  // but allows to use event.XXX instead of evenStore.event.XXX
+  computed: mapState({
+    thisEvent: state => state.eventStore.event
+  }),
+  // different alterantives to map actions
+  methods: mapActions({ mappedActionFetchEvent: 'eventStore/fetchEvent' })
+  // mapActions('eventStore', ['fetchEvent'])
 }
 </script>
 <style scoped>

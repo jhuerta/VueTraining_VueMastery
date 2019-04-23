@@ -31,7 +31,7 @@ export default {
         time: '',
         attendees: []
       }
-      this.$store.dispatch('createEvent', newRandomEvent)
+      this.$store.dispatch('eventStore/createEvent', newRandomEvent)
     }
   }
 }

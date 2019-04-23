@@ -7,7 +7,7 @@
     </div>
     <div>
       <u>Using mapstate passing the object:</u>
-      <b>{{user.name}} ({{user.id}})</b>
+      <b>{{userStore.user.name}} ({{userStore.user.id}})</b>
     </div>
     <div>
       <u>Using literal strings to compose the name + id:</u>
@@ -38,7 +38,7 @@ export default {
   },
   computed: {
     // We can use mapGetters in a similar way as mapState
-    ...mapGetters(['getEventById', 'numberOfDoneTodos']),
+    ...mapGetters('eventStore', ['getEventById', 'numberOfDoneTodos']),
     numberOfCategories() {
       return this.$store.getters.categoryLength
     },
@@ -55,16 +55,16 @@ export default {
       return Date.now()
     },
     userName() {
-      return this.$store.state.user.name
+      return this.userStore.user.name
     },
     userId() {
-      return this.$store.state.user.id
+      return this.userStore.user.id
     },
     // We can access the store from this.$store or with mapstate
     fullUserName() {
-      return `${this.$store.state.user.name} (${this.$store.state.user.id})`
+      return `${this.userStore.user.name} (${this.userStore.user.id})`
     },
-    ...mapState(['user', 'categories'])
+    ...mapState(['categories', 'userStore'])
     // using this notation of array is the same as
     /*...mapState({
       user: 'user',

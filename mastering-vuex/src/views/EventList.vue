@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Events Listing</h1>
+    <h1>Events Listing for {{userStore.user.name}}</h1>
     <!-- <a href="#" @click="page--"><< Previous</a> |
     <a href="#" @click="page++">Next >></a>-->
 
@@ -21,7 +21,7 @@
       <input id="page" @change="onChange()" v-model="page" type="number">
     </div>
 
-    <EventCard v-for="event in events" :key="event.id" :event="event"/>
+    <EventCard v-for="event in eventStore.events" :key="event.id" :event="event"/>
   </div>
 </template>
 
@@ -41,18 +41,16 @@ export default {
   },
   methods: {
     onChange() {
-      this.$store.dispatch('fetchEvents', {
+      this.$store.dispatch('eventStore/fetchEvents', {
         perPage: this.perPage,
         page: this.cpage
       })
     }
   },
   computed: {
-    ...mapState(['events', 'totalEvents']),
+    ...mapState(['eventStore', 'userStore']),
     cpage: {
       get() {
-        console.log(this.page)
-        console.log(this.page)
         return this.page
       },
       // setter
@@ -61,7 +59,7 @@ export default {
     shouldDisplayNext: {
       get() {
         var currentDisplayed = this.page * this.perPage
-        var shouldDisplayNext = this.totalEvents > currentDisplayed
+        var shouldDisplayNext = this.eventStore.totalEvents > currentDisplayed
         return shouldDisplayNext
       },
       set() {}
