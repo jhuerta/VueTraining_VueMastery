@@ -92,6 +92,8 @@ fetchEvent({ commit, rootState, actions, getters }, id) {
 })
 [end]
 
+https://vuex.vuejs.org/guide/modules.html#binding-helpers-with-namespace
+
 `------------------------------------------------------------`
 `        TWO WAYS TO DECLARE MODULES IN THE STORE            `
 `------------------------------------------------------------`

@@ -29,6 +29,7 @@ Vue.use(Vuex)
 
 import * as userStore from '@/store/modules/user.js'
 import * as eventStore from '@/store/modules/event.js'
+import * as notificationStore from '@/store/modules/notification.js'
 
 export default new Vuex.Store({
   state: {
@@ -48,5 +49,5 @@ export default new Vuex.Store({
       'community'
     ]
   },
-  modules: { userStore, eventStore }
+  modules: { userStore, eventStore, notificationStore }
 })

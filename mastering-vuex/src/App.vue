@@ -2,15 +2,26 @@
   <div id="app">
     <NavBar/>
     <router-view :key="$route.fullPath"/>
+    <Notifications :notifications="notifications"/>
   </div>
 </template>
 
 <script>
 import NavBar from '@/components/NavBar.vue'
+import Notifications from '@/components/Notifications.vue'
+
+import { mapState } from 'vuex'
 
 export default {
   components: {
-    NavBar
+    NavBar,
+    Notifications
+  },
+
+  computed: {
+    ...mapState({
+      notifications: state => state.notificationStore.notifications
+    })
   }
 }
 </script>

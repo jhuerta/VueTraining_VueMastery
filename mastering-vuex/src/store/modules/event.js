@@ -127,6 +127,12 @@ export const actions = {
     return 'Event Action: Just for test'
   },
   fetchEvent({ commit, rootState, getters, dispatch }, id) {
+    dispatch(
+      'notificationStore/addSuccess',
+      'Successfully called event id: ' + id,
+      { root: true }
+    )
+
     // Accessing state from other modules: USE rootState
     var globalStoreMessage = `Getting event for user: ${
       rootState.userStore.user.name
@@ -169,15 +175,25 @@ export const actions = {
         })
     }
   },
-  fetchEvents({ commit }, { perPage, page }) {
+  fetchEvents({ commit, dispatch }, { perPage, page }) {
     EventService.getEvents(perPage, page)
       .then(response => {
+        dispatch(
+          'notificationStore/addSuccess',
+          'Successfully Called Fetch Events',
+          { root: true }
+        )
+
         var xTotalCount = response.headers['x-total-count']
         commit('SET_TOTAL_EVENTS', xTotalCount)
         commit('INITIALIZE_EVENTS', response.data)
       })
       .catch(error => {
-        console.log('There was an error:', error.response)
+        dispatch(
+          'notificationStore/addError',
+          'Problem fetching events: ' + error.message,
+          { root: true }
+        )
       })
   },
   createEvent({ commit }, event) {
