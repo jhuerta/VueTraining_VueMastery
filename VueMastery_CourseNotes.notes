@@ -150,3 +150,31 @@ json-server -d 5000  db.json
     beforeRouteUpdate(routeTo, routeFrom, next)
     beforeRouteLeave(routeTo, routeFrom, next)
     beforeRouteEnter(routeTo, routeFrom, next)
+
+#SECTION 2: GLOBAL ROUTE GUARD (GLOBAL ROUTE HOOKS)
+    - This hooks will be applied to all routes
+    [javascript]
+    router.beforeEach((routeTo, routeFrom, next) => {
+        ...
+    })
+    router.afterEach((routeTo, routeFrom) => {
+        ...
+    })
+    [end]
+    - In addition within the route definition, you can add hooks called Per-Route guards (beforeEnter) as well, and pass the 
+        output as a paramter (prop). Therefore, you can remove any dependency in the module from vuex
+        (at the cost of adding the logic into the router)
+
+        [javascript]
+            {
+                path: '/event/:id',
+                name: 'event-show',
+                component: EventShow,
+                props: true,
+                beforeEnter(routeTo, routeFrom, next) {
+                    store.dispatch('event/fetchEvent', routeTo.params.id).then(event => {
+                        routeTo.params.event = event
+                        next()
+                })
+            }
+        [end]
