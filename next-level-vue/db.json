@@ -267,6 +267,42 @@
       "date": "2019-04-01T07:44:00.000Z",
       "time": "1:00",
       "attendees": []
+    },
+    {
+      "id": 3417663,
+      "user": {
+        "id": "abc123",
+        "name": "Adam"
+      },
+      "category": "sustainability",
+      "organizer": {
+        "id": "abc123",
+        "name": "Adam"
+      },
+      "title": "aaaaaa",
+      "description": "bbbbbbbb",
+      "location": "bdddddddddd",
+      "date": "2019-04-03T13:26:00.000Z",
+      "time": "1:00",
+      "attendees": []
+    },
+    {
+      "id": 5578523,
+      "user": {
+        "id": "abc123",
+        "name": "Adam"
+      },
+      "category": "animal welfare",
+      "organizer": {
+        "id": "abc123",
+        "name": "Adam"
+      },
+      "title": "aaaaaaaa",
+      "description": "bbbbbbbbbb",
+      "location": "cccccccc",
+      "date": "2019-04-12T13:26:00.000Z",
+      "time": "1:00",
+      "attendees": []
     }
   ]
 }

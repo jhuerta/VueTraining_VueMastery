@@ -14,7 +14,8 @@ const router = new Router({
     {
       path: '/',
       name: 'event-list',
-      component: EventList
+      component: EventList,
+      props: true
     },
     {
       path: '/event/create',
@@ -41,7 +42,7 @@ router.beforeEach((routeTo, routeFrom, next) => {
   NProgress.start()
   next()
 })
-router.afterEach((routeTo, routeFrom) => {
+router.afterEach(() => {
   NProgress.done()
   console.log('Global Router: afterEach')
 })
