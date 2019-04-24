@@ -94,6 +94,7 @@ fetchEvent({ commit, rootState, actions, getters }, id) {
 
 https://vuex.vuejs.org/guide/modules.html#binding-helpers-with-namespace
 
+
 `------------------------------------------------------------`
 `        TWO WAYS TO DECLARE MODULES IN THE STORE            `
 `------------------------------------------------------------`
@@ -121,3 +122,31 @@ export default{
 }
 
 [end]
+
+`------------------------------------------------------------`
+`        NEXT LEVEL VUE            `
+`------------------------------------------------------------`
+
+#SECTION 1: DELAY JSON SERVER
+json-server -d 5000  db.json
+
+#SECTION 1: NPROGRESS
+- Use nprogress to install quite easy a progress bar.
+- One option: interceptors in Axios
+    [javascript]
+        apiClient.interceptors.request.use(config => {
+            NProgress.start()
+            return config
+        })
+
+        apiClient.interceptors.response.use(response => {
+            NProgress.done()
+            return response
+        })
+    [end]
+
+#SECTION 2: HOOKS IN ROUTE EVENTS (VUE ROUTER)
+    To be used "like" interceptos
+    beforeRouteUpdate(routeTo, routeFrom, next)
+    beforeRouteLeave(routeTo, routeFrom, next)
+    beforeRouteEnter(routeTo, routeFrom, next)

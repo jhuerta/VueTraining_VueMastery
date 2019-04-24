@@ -249,6 +249,24 @@
       "date": "2019-04-01T07:20:00.000Z",
       "time": "1:00",
       "attendees": []
+    },
+    {
+      "id": 6074266,
+      "user": {
+        "id": "abc123",
+        "name": "Adam"
+      },
+      "category": "nature",
+      "organizer": {
+        "id": "abc123",
+        "name": "Adam"
+      },
+      "title": "aaa",
+      "description": "aa",
+      "location": "aaa",
+      "date": "2019-04-01T07:44:00.000Z",
+      "time": "1:00",
+      "attendees": []
     }
   ]
 }
