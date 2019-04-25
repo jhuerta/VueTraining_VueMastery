@@ -447,6 +447,42 @@
       "date": "",
       "time": "",
       "attendees": []
+    },
+    {
+      "id": 2748134,
+      "user": {
+        "id": "abc123",
+        "name": "Adam"
+      },
+      "category": "sustainability",
+      "organizer": {
+        "id": "abc123",
+        "name": "Adam"
+      },
+      "title": "aaa",
+      "description": "aaa",
+      "location": "aa",
+      "date": "2019-04-02T13:35:00.000Z",
+      "time": "5:00",
+      "attendees": []
+    },
+    {
+      "id": 3492706,
+      "user": {
+        "id": "abc123",
+        "name": "Adam"
+      },
+      "category": "nature",
+      "organizer": {
+        "id": "abc123",
+        "name": "Adam"
+      },
+      "title": "aaaaaaaa",
+      "description": "bbbbbbbb",
+      "location": "cccccccccc",
+      "date": "2019-04-04T13:36:00.000Z",
+      "time": "2:00",
+      "attendees": []
     }
   ]
 }

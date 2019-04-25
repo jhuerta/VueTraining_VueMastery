@@ -6,7 +6,11 @@
 </template>
 
 <script>
+import { commonBaseComponentFields } from '../mixins/CommonBaseComponent'
 export default {
+  mixins: [commonBaseComponentFields]
+  /* ALL THE CODE BELOW IS SUBSTITUTED BY THE MIXIN!!! */
+  /*
   computed: {
     listeners() {
       return {
@@ -22,11 +26,9 @@ export default {
     }
   },
   props: {
-    label: {
-      type: String,
-      default: ''
-    },
+    label: [String],
     value: [String, Number]
   }
+  */
 }
 </script>

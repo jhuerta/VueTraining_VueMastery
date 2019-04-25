@@ -30,6 +30,19 @@ requireComponent.keys().forEach(fileName => {
   Vue.component(componentName, componentConfig.default || componentConfig)
 })
 
+// DECLARING A GLOBAL MIXIN
+Vue.mixin({
+  mounted() {
+    // QUITE DANGEROUS: THIS CODE WILL BE EXECUTED EVERYWHERE
+    // console.log('I will be in every component')
+  },
+  data() {
+    return {
+      dataFromMixin: "I'm definied as a global mixin data"
+    }
+  }
+})
+
 new Vue({
   router,
   store,

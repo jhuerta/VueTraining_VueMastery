@@ -8,32 +8,18 @@
 </template>
 
 <script>
+import { commonBaseComponentFields } from '../mixins/CommonBaseComponent'
 export default {
+  mixins: [commonBaseComponentFields],
+  /* THERE HAS BEEN A TON OF CODE THAT IS IN THE MIXIN!!!*/
   props: {
-    value: {
-      type: [Object, String]
-    },
-    label: [String],
     items: {
       type: Array,
       default: () => []
     }
-  },
-  inheritAttrs: false,
-  /* This computed way of doing things is easier to visualize and remember*/
-  computed: {
-    listeners() {
-      return {
-        ...this.$listeners,
-        input: this.updateValue
-      }
-    }
-  },
-  methods: {
-    updateValue(event) {
-      this.$emit('input', event.target.value)
-    }
   }
+  /* This computed way of doing things is easier to visualize and remember*/
+
   // computed: {
   //   vOnMethods: function() {
   //     var vm = this

@@ -1,8 +1,15 @@
 <template>
   <div id="app">
     <NavBar/>
+    <div style="margin:30px;border: 25px solid pink;">
+      <BaseButton
+        @click.prevent="callMixinGlobalDeclared"
+        buttonClass="button -fill-gradient"
+      >Global Mixin</BaseButton>
+    </div>
+
     <NotificationContainer/>
-    <router-view :key="$route.fullPath" />
+    <router-view :key="$route.fullPath"/>
   </div>
 </template>
 
@@ -11,6 +18,11 @@ import NavBar from '@/components/NavBar.vue'
 import NotificationContainer from '@/components/NotificationContainer.vue'
 
 export default {
+  methods: {
+    callMixinGlobalDeclared() {
+      alert(this.dataFromMixin)
+    }
+  },
   components: {
     NavBar,
     NotificationContainer

@@ -242,3 +242,47 @@ json-server -d 5000  db.json
 
 #SECTION 9: FORM VALIDATION: USE VUELIDATE
     -   npm install vuelidate
+    import { required, email } from 'vuelidate/lib/validators'
+    
+    export default {
+        data() {...},
+        validations: {
+            email: { required, email }
+        }
+    }
+
+    /*
+      $this.$v.$touch()
+      $this.$v.$invalid
+      $this.$v.$anyError
+      $this.$v.email.$touch()
+      $this.$v.$invalid
+      $this.$v.event.category.$error
+      $this.$v.event.title.$touch()
+      $this.$v.event.location.required
+    */
+
+#SECTION 10: MIXINS
+    Mixins: 
+        1. The created hook runs before than the component!!!!!!
+        2. In case of conflics, the name of data or method in the component takes priority over the mixin
+        3. It is considered like in extract/merge of a component
+            // Mixin
+            export const mixinName = {
+                methods: {...},
+                data() {...},
+            }
+
+            // Component
+            import {mixinName} from 'MIXIN_LOCATION'
+            export default {
+                mixins: [mixinName] `<---------`
+                methods: {...},
+                data() {...},
+            }
+        4. Global MIXIN
+        Vue.mixin({
+            mounted(){
+                console.log('I will be in every component')
+            }
+        })

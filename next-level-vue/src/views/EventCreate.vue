@@ -92,6 +92,13 @@
       </div>-->
 
       <div style="margin-bottom:20px">
+        <BaseButton
+          @click.prevent="callingGlobalMixin"
+          buttonClass="button -fill-gradient"
+        >Global Mixin</BaseButton>
+      </div>
+
+      <div style="margin-bottom:20px">
         <BaseButton @click.prevent="alertMessage" buttonClass="button -fill-gradient">Send Message</BaseButton>
       </div>
       <div>
@@ -140,6 +147,9 @@ export default {
     }
   },
   methods: {
+    callingGlobalMixin() {
+      alert(this.dataFromMixin)
+    },
     alertMessage() {
       alert('I have been clicked')
     },
