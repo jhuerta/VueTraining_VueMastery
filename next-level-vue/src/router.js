@@ -5,6 +5,7 @@ import EventList from './views/EventList.vue'
 import EventShow from './views/EventShow.vue'
 import NotFoundPage from './components/NotFound'
 import NetworkIssue from './components/NetworkIssue'
+import FormValidation from './components/FormValidation'
 
 import NProgress from 'nprogress'
 import store from '@/store/store'
@@ -19,6 +20,10 @@ const router = new Router({
       name: 'event-list',
       component: EventList,
       props: true
+    },
+    {
+      path: '/FormValidation',
+      component: FormValidation
     },
     {
       path: '/event/create',

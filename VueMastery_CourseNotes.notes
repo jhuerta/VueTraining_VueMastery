@@ -213,3 +213,5 @@ json-server -d 5000  db.json
     - TO communicate from CHILD to PARENT, emmit events!
     - TO communicate from PARENT to CHILD, use props!
 
+#SECTION 9: FORM VALIDATION: USE VUELIDATE
+    -   npm install vuelidate
