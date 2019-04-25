@@ -286,3 +286,35 @@ json-server -d 5000  db.json
                 console.log('I will be in every component')
             }
         })
+
+#SECTION 12: FILTERS
+    <template>
+    <div>
+        {{message | FILTER_NAME('arg_1')}}
+    </div>
+    </template>
+
+    export default {
+        data() {
+            return {
+            message: 'Here a message'
+            }
+        },
+        filters: {
+            FILTER_NAME(value, arg_1): { return                    ANY_TRANSFORMATION(value,arg_1) 
+            }
+        }
+    }
+
+    - GLOBAL FILTERS
+        * Within filter file:
+        export default (value, arg1, arg2) => {
+            return ANY_TRANSFORMATION(value, arg1, arg2)
+        }
+        * Within main.js
+        import ANY_NAME from 'FILTER_FILE_LOCATION'
+        Vue.filter('any_other_name', ANY_NAME)
+        * Within component
+        {{ data_value | any_other_name(arg1, arg2) 
+
+        PROBALY IS BETTER TO USE COMPUTED BECAUSE OF THE CACHING!!!

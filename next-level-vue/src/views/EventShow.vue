@@ -1,7 +1,9 @@
 <template>
   <div>
     <div class="event-header">
-      <span class="eyebrow">@{{ event.time }} on {{ event.date }}</span>
+      <span
+        class="eyebrow"
+      >@{{ event.time }} on {{ event.date | formatDate("___") | someLocalFilter('!!!!!') }}</span>
       <h1 class="title">{{ event.title }}</h1>
       <h5>Organized by {{ event.organizer ? event.organizer.name : '' }}</h5>
       <h5>Category: {{ event.category }}</h5>
@@ -29,7 +31,12 @@
 </template>
 <script>
 export default {
-  props: ['event']
+  props: ['event'],
+  filters: {
+    someLocalFilter(value, postfix) {
+      return value + postfix
+    }
+  }
 }
 </script>
 <style scoped>
