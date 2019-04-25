@@ -212,6 +212,8 @@ json-server -d 5000  db.json
 - Remember: 
     - TO communicate from CHILD to PARENT, emmit events!
     - TO communicate from PARENT to CHILD, use props!
+    - Use v-on="$listeners"  inside the child component, if you want the parent component to listen (get notified) of the events in the child
+
 
 #SECTION 9: FORM VALIDATION: USE VUELIDATE
     -   npm install vuelidate
