@@ -178,3 +178,38 @@ json-server -d 5000  db.json
                 })
             }
         [end]
+#SECTION 7: REGISTER GLOBALLLY COMPONENTS
+- Register locally
+    - In the component itself:
+        export default {...}
+    - In the component where it will be used
+        import COMPONENT_NAME from 'component_location'
+
+        export default {
+            components: {
+                COMPONENT_NAME
+            }
+        }
+- Register globally
+    - In the main.js file:
+        import COMPONENT_NAME from 'component_location'
+
+        Vue.component('COMPONENT_CHOSEN_NAME', COMPONENT_NAME)
+
+        // Before the new Vue() statement
+        new Vue(...)
+
+#SECTION 8: BASE COMPONENTS
+- By default, the attributes of a component will be passed into the root of the base template.
+    If you want the attributes to be passed somewhere down the template, use 'inheritAttrs: false,' and v-bind="$attrs"
+
+    <input @input="updateValue" :value="value" v-bind="$attrs">
+
+    export default {
+    inheritAttrs: false,
+    ...
+    }
+- Remember: 
+    - TO communicate from CHILD to PARENT, emmit events!
+    - TO communicate from PARENT to CHILD, use props!
+

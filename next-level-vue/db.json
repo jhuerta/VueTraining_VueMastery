@@ -303,6 +303,24 @@
       "date": "2019-04-12T13:26:00.000Z",
       "time": "1:00",
       "attendees": []
+    },
+    {
+      "id": 309865,
+      "user": {
+        "id": "abc123",
+        "name": "Adam"
+      },
+      "category": "",
+      "organizer": {
+        "id": "abc123",
+        "name": "Adam"
+      },
+      "title": "aaaaaaaaaaaaaaaa",
+      "description": "aaaaaaaaa",
+      "location": "aaaaaaaaaaaa",
+      "date": "2019-04-01T07:20:00.000Z",
+      "time": "",
+      "attendees": []
     }
   ]
 }
