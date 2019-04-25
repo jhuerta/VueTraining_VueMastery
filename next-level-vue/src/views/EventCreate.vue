@@ -53,7 +53,13 @@
         </select>
       </div>-->
 
-      <input type="submit" class="button -fill-gradient" value="Submit">
+      <div style="margin-bottom:20px">
+        <BaseButton @click.prevent="alertMessage" buttonClass="button -fill-gradient">Send Message</BaseButton>
+      </div>
+      <div>
+        <BaseButton type="submit" buttonClass="button -fill-gradient">Submit</BaseButton>
+      </div>
+      <!-- <input value="Submit"> -->
     </form>
   </div>
 </template>
@@ -79,6 +85,9 @@ export default {
     }
   },
   methods: {
+    alertMessage() {
+      alert('I have been clicked')
+    },
     createEvent() {
       NProgress.start()
       this.$store
