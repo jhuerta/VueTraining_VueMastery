@@ -432,3 +432,8 @@ Parent template:
     <h1>{{last}}</h1>
     </template>
 </user-card>
+#SECTION 3.2: RENDER PROPS
+Render props allows to get a similar effect than the scoped slot, but using render functions with HTML inside the javascript.
+
+Some libraries,in order to give flexibility to render some code, allows to use slot scoped while others ask you to implement render props 
+
