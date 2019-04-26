@@ -6,6 +6,7 @@ import EventShow from './views/EventShow.vue'
 import NotFoundPage from './components/NotFound'
 import NetworkIssue from './components/NetworkIssue'
 import FormValidation from './components/FormValidation'
+import FunctionalComponent from './components/FunctionalComponent.js'
 
 import NProgress from 'nprogress'
 import store from '@/store/store'
@@ -22,8 +23,14 @@ const router = new Router({
       props: true
     },
     {
+      path: '/FunctionalComponent',
+      component: FunctionalComponent,
+      name: 'funcional-component'
+    },
+    {
       path: '/FormValidation',
-      component: FormValidation
+      component: FormValidation,
+      name: 'form-validation'
     },
     {
       path: '/event/create',

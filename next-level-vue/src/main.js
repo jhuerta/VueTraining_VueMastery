@@ -8,12 +8,14 @@ import BaseIcon from '@/components/BaseIcon'
 import 'nprogress/nprogress.css'
 import Vuelidate from 'vuelidate'
 import DateFilter from './filters/formatDate'
+import FunctionalComponent from './components/FunctionalComponent.js'
 
 Vue.filter('formatDate', DateFilter)
 
 Vue.use(Vuelidate)
 
 Vue.component('BaseIcon', BaseIcon)
+Vue.component('FunctionalComponent', FunctionalComponent)
 
 Vue.config.productionTip = false
 

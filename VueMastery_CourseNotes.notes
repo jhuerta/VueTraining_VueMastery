@@ -133,17 +133,18 @@ json-server -d 5000  db.json
 #SECTION 1: NPROGRESS
 - Use nprogress to install quite easy a progress bar.
 - One option: interceptors in Axios
-    [javascript]
-        apiClient.interceptors.request.use(config => {
-            NProgress.start()
-            return config
-        })
+[javascript]
+    apiClient.interceptors.request.use(config => {
+        NProgress.start()
+        return config
+    })
 
-        apiClient.interceptors.response.use(response => {
-            NProgress.done()
-            return response
-        })
-    [end]
+    apiClient.interceptors.response.use(response => {
+        NProgress.done()
+        return response
+    })
+[end]
+
 
 #SECTION 2: HOOKS IN ROUTE EVENTS (VUE ROUTER)
     To be used "like" interceptos
@@ -153,31 +154,32 @@ json-server -d 5000  db.json
 
 #SECTION 2: GLOBAL ROUTE GUARD (GLOBAL ROUTE HOOKS)
     - This hooks will be applied to all routes
-    [javascript]
-    router.beforeEach((routeTo, routeFrom, next) => {
-        ...
-    })
-    router.afterEach((routeTo, routeFrom) => {
-        ...
-    })
-    [end]
+[javascript]
+router.beforeEach((routeTo, routeFrom, next) => {
+    ...
+})
+router.afterEach((routeTo, routeFrom) => {
+    ...
+})
+[end]
     - In addition within the route definition, you can add hooks called Per-Route guards (beforeEnter) as well, and pass the 
         output as a paramter (prop). Therefore, you can remove any dependency in the module from vuex
         (at the cost of adding the logic into the router)
 
-        [javascript]
-            {
-                path: '/event/:id',
-                name: 'event-show',
-                component: EventShow,
-                props: true,
-                beforeEnter(routeTo, routeFrom, next) {
-                    store.dispatch('event/fetchEvent', routeTo.params.id).then(event => {
-                        routeTo.params.event = event
-                        next()
-                })
-            }
-        [end]
+[javascript]
+    {
+        path: '/event/:id',
+        name: 'event-show',
+        component: EventShow,
+        props: true,
+        beforeEnter(routeTo, routeFrom, next) {
+            store.dispatch('event/fetchEvent', routeTo.params.id).then(event => {
+                routeTo.params.event = event
+                next()
+            })
+        }
+    }
+[end]
 #SECTION 7: REGISTER GLOBALLLY COMPONENTS
 - Register locally
     - In the component itself:
@@ -218,26 +220,26 @@ json-server -d 5000  db.json
     https://vuejs.org/v2/guide/components-custom-events.html 
     https://github.com/vuejs/vue/issues/7042
     And implement this on v-on='inputListeners'
-    [javascript]
+[javascript]
     computed: {
     inputListeners: function () {
-      var vm = this
-      // `Object.assign` merges objects together to form a new object
-      return Object.assign({},
+        var vm = this
+        // `Object.assign` merges objects together to form a new object
+        return Object.assign({},
         // We add all the listeners from the parent
         this.$listeners,
         // Then we can add custom listeners or override the
         // behavior of some listeners.
         {
-          // This ensures that the component works with v-model
-          input: function (event) {
+            // This ensures that the component works with v-model
+            input: function (event) {
             vm.$emit('input', event.target.value)
-          }
+            }
         }
-      )
+        )
     }
-  },
-    [end]
+    },
+[end]
 
 
 #SECTION 9: FORM VALIDATION: USE VUELIDATE
@@ -318,3 +320,115 @@ json-server -d 5000  db.json
         {{ data_value | any_other_name(arg1, arg2) 
 
         PROBALY IS BETTER TO USE COMPUTED BECAUSE OF THE CACHING!!!
+
+`------------------------------------------------------------`
+`        ADVANCED COMPONENTS                                 `
+`------------------------------------------------------------`
+#SECTION 1: COMPONENTS
+Interesting view on the watch elements. Inside look into how the watchers gets reactive when data changes.
+`1. IMPORTANT!!!!: VUE CANNOT DETECT THE FOLLOWING CHANGES: `
+    app.items[index] = newValue -----> This wont trigger the watch!!!!!!!!!
+    USE INSTEAD
+    Vue.set(app.items, index, newValue)
+
+    app.items.length = newLength -----> This wont trigger the watch!!!!!!!!!
+    USE INSTEAD
+    app.items.splice(indexOfItem,1,newLength)
+
+`2. IMPORTANT!!!!: ADDING NEW REACTIVE PROPERTIES TO VUE OBJECT `
+
+
+[javascript]
+// THIS WONT MAKE THE SIZE PROPERTY REACTIVE
+var app = new Vue({
+    data: {
+        product: "Socks"
+    }
+
+})
+app.size = "XXL" 
+
+// USE THIS APPROACH TO ADD REACTIVE PROPERTIES
+var app = new Vue({
+    data: {
+        product: { // <-------- NOTICE WE ARE USING AN OBJECT INSTEAD OF THE SINGLE VARIABLE
+            name: "Socks"
+        }
+    }
+
+})
+
+Vue.set(app.product,"color","red") // <----- This 'color' property IS REACTIVE
+// Below the way to add multiple reactive properties
+app.product = Object.assign( {}, app.product, {
+    isAvailable = true,
+    price = 50,
+    material = 'Wool'
+})
+
+[end]
+#SECTION 2: FUNCTIONAL COMPONENTS
+To be used for components with little logic to create fast-loading presentational component. Not so sure on the beneffits in our case.
+
+!!!!GOOD USE CASES:!!!!
+- !LEAF OBJECTS!: objects that are quite in number and at the end of the virtual DOM tree. Example of list (or a table) with a button in each row. If each button is a functional component instead of a normal component, there will be less instances of Vue, !!!!!BECAUSE FUNCTIONAL COMPONENT DO NOT INSTANTIATE VUE!!!!!!!.
+
+[javascript]
+<template>
+  <span>
+    <div>One</div>
+    <div>Two</div>
+    <div>Three</div>
+    <div>Four</div>
+  </span>
+</template>
+
+<script>
+export default {
+  functional: true,
+  name: 'functionaComponent'
+}
+</script>
+[end]
+
+#SECTION 3: SCOPED SLOTS AND RENDER props
+A nice way to create slots in your components and allow the child receive data from the parent component.
+[javascript]
+
+<products-list :products="products">
+    <template slot="product" slot-scope="slotProps">
+        <img :src="slotProps.product.image" /> {{ slotProps.product.name.toUpperCase() }}
+    </template>
+
+    // Or this way using desctructing
+    <template slot="product" slot-scope="{{ product }}">
+        <img :src="product.image" /> {{ product.name.toUpperCase() }}
+    </template>
+
+</products-list>
+// Here the declarion of the slot in the product-list component:
+template: `
+        <ul>
+          <li v-for="product in products">
+            <slot name="product" :product="product" >
+                {{ product.name }}
+            </slot>
+          </li>
+        </ul>`
+[end]
+
+Another way of looking at this:
+
+In the declaration of the scope, we know we are getting a prop, in this case the prop name is user. And we can SEND BACK this props attributes back to the parent, in "new props", which are first and last.
+
+Child template
+    <slot name="person" :first="user.firstName" :last="user.lastName"
+
+In the parent template, we recover the props send from the child as first and last. We create the component user-card,and send the user prop. However, we specify the way we want to render in the parent
+Parent template:
+<user-card :user="user">
+    <template slot="person" slot-scope="{first,last}">
+    <h1>{{first}}</h1>
+    <h1>{{last}}</h1>
+    </template>
+</user-card>
