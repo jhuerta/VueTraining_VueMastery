@@ -5,6 +5,7 @@ const bodyParser = require('body-parser')
 const fs = require('fs')
 const events = require('./db/events.json')
 
+const theSecretKey = 'any_the_secret_key'
 const app = express()
 
 app.use(cors())
@@ -16,9 +17,15 @@ app.get('/', (req, res) => {
   })
 })
 
-app.get('/dashboard', (req, res) => {
-  res.json({
-    events: events
+app.get('/dashboard', verifyToken, (req, res) => {
+  jwt.verify(req.token, theSecretKey, err => {
+    if (err) {
+      res.sendStatus(401)
+    } else {
+      res.json({
+        events: events
+      })
+    }
   })
 })
 
@@ -41,7 +48,7 @@ app.post('/register', (req, res) => {
         if (err) {
           console.log(err + data)
         } else {
-          const token = jwt.sign({ user }, 'the_secret_key')
+          const token = jwt.sign({ user }, theSecretKey)
           // In a production app, you'll want the secret key to be an environment variable
           res.json({
             token,
@@ -64,7 +71,7 @@ app.post('/login', (req, res) => {
     req.body.email === userInfo.email &&
     req.body.password === userInfo.password
   ) {
-    const token = jwt.sign({ userInfo }, 'the_secret_key')
+    const token = jwt.sign({ userInfo }, theSecretKey)
     // In a production app, you'll want the secret key to be an environment variable
     res.json({
       token,
@@ -77,7 +84,7 @@ app.post('/login', (req, res) => {
 })
 
 // MIDDLEWARE
-function verifyToken (req, res, next) {
+function verifyToken(req, res, next) {
   const bearerHeader = req.headers['authorization']
 
   if (typeof bearerHeader !== 'undefined') {
