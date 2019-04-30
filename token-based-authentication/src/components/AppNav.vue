@@ -6,14 +6,35 @@
     <router-link to="/dashboard">
       Dashboard
     </router-link>
-    <router-link to="/register">
+
+    <router-link v-if="!isLoggedIn" to="/login" class="button" style="margin-left: initial !important">
+      Login
+    </router-link>
+
+    <router-link v-if="!isLoggedIn" to="/register" class="button" style="margin-left: initial !important">
       Register
     </router-link>
+    <logout />
   </div>
 </template>
 
 <script>
-export default {}
+import { authComputed } from '@/state/helpers.js'
+import Logout from '@/views/Logout.vue'
+
+export default {
+  components: {
+    logout: Logout
+  },
+  computed: {
+    ...authComputed
+  },
+  methods: {
+    logout () {
+      this.$store.dispatch('logout').then(this.$router.push({ name: 'home' }))
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>
